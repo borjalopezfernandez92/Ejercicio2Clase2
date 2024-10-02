@@ -1,0 +1,125 @@
+
+#cont_principal{
+    position: absolute;
+    max-width: 740px;
+    left: 30%;
+    right: 30%;
+}
+
+body{
+    margin: 0px;
+    font-size: larger;
+}
+
+p {
+    color: gray;
+}
+
+#logo{
+    width: 240px;
+    height: 48px;
+}
+
+
+#ul_tabla:hover,.subscripcion:hover{
+    border-width: 1px;
+    border-color: black;
+    border-style: solid;
+}
+
+img{
+    width: 350px;
+}
+
+#ul_tabla{
+    margin-left: 50px;
+}
+
+.subscripcion{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#ul_tabla,.subscripcion{
+    padding-left: 35px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    background-color: rgb(241, 241, 241);
+    border-radius: 2%;
+    min-width: 280px;
+}
+
+/**************************************/
+/*H*/
+
+h1{
+    text-align: center;
+    margin:0;
+    margin-top: 60px;
+}
+
+/**************************************/
+/*Footers*/
+#footh1{
+    text-align: center;
+}
+
+#footBot{
+    text-align: center;
+    display:flex;
+    justify-content: space-around;
+}
+
+#copyright{
+    margin: 7px;
+}
+
+.footlist{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin:4px;
+}
+/**************************************/
+/*NAVS*/
+.navlist{
+    display: flex;
+    justify-content: space-around;
+    min-height: 30px;
+    color:rgb(173, 173, 173);
+    margin: 5px;
+    padding: 5px;
+    border-radius: 20%;
+}
+
+#nav_sus{
+    border-width: 1px;
+    border-style: solid;
+    border-color: white;
+}
+
+#navhead {
+    background-color: rgb(44, 44, 44);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 80px;
+}
+
+/**************************************/
+/* Enlaces*/
+
+a.navlink {
+    color:rgb(173, 173, 173); 
+}
+
+a:visited{
+    color:rgb(173, 173, 173);  
+}
+
+li a{
+    color: rgb(0, 119, 255)
+}
+

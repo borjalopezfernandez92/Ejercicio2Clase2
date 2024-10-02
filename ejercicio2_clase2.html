@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2.26 - Proyecto Final: Predicción del Riesgo de Diabetes con Redes Neuronales</title>
+    <link rel="stylesheet" href="ejercicio2_clase2.css">
+    <link rel="icon" type="image/x-icon" href="/img/cb-icon.ico">
+</head>
+<body>
+    <nav id="navhead">
+        <img src="/img/cb-logo.png" id="logo">
+        <ul class="navlist">
+            <li class="navlist"><a class="navlink" target="_blank" href="https://cursos.codificandobits.com/bundles/academia-online">Cursos</a></li>
+            <li class="navlist"><a class="navlink" target="_blank" href="https://www.codificandobits.com/servicios/">Servicios</a></li>
+            <li class="navlist"><a class="navlink" target="_blank" href="https://www.codificandobits.com/contacto/">Contacto</a></li>
+            <li id="nav_sus" class="navlist"><a class="navlink" target="_blank" href="https://cursos.codificandobits.com/order?ct=781d041d-29b9-437b-bee2-fdc4ed7cbc49">Suscribirse</a></li>
+        </ul>
+    </nav>
+    <div id="cont_principal">
+        <div id="cont_header">
+            <header>
+                <h1>
+                    2.26 - Proyecto Final: Predicción del Riesgo de Diabetes con Redes Neuronales
+                </h1>
+                <footer id="footh1">
+                    Julio 10, 2021 por Miguel Sotaquirá
+                </footer>
+            </header>
+        </div>
+        <div id="cont_tabla_contenido">
+            <h4>
+                <p>Lección 26 de la sección “Redes Neuronales” del curso <a href="https://cursos.codificandobits.com/courses/fundamentos-deep-learning-python"> Fundamentos de Deep Learning con Python.</a></p>
+            </h4>
+
+            <ul id="ul_tabla">
+                <h3>
+                    Tabla de contenido
+                </h3>
+                <li> <a href="#">Introducción</a></li>
+                <li> <a href="#">El probelma a resolver</a></li>
+                <li> <a href="#">El set de datos</a></li>
+                <li> <a href="#">Análisis Exploratorio de los Datos</a></li>
+                <li> <a href="#">Manejo de datos faltantes</a></li>
+                <li> <a href="#">Pre-procesamiento: estandarización de los datos</a></li>
+                <li> <a href="#">Sets de entrenamiento, prueba y validación</a></li>
+                <li> <a href="#">Modelos base, entrenamiento y prueba</a></li>
+                <li> <a href="#">Cross-validation</a></li>
+                <li> <a href="#">Conclusiones</a></li>
+            </ul>
+        </div>
+        <div id="cont_articulos">
+            <article id="art_1">
+                <h3>Introducción</h3>
+                <p>
+                    En la lección anterior vimos varios <a href="#">aspectos prácticos a tener en cuenta en la implementación de Redes Neuronales</a>, y con esto ya tenemos todos los elementos para resolver un problema real de forma práctica usando esta arquitectura.
+                </p>
+                <p>
+                    Así que en esta lección veremos cómo crear y entrenar una Red Neuronal en con ayuda de Python y Keras para predecir la probabilidad de aparición de diabetes en una población determinada.
+                </p>
+                <div class="subscripcion">
+                    <img src="/img/contenido_exclusivo_suscriptores.png">
+                    <p>
+                        <a href="#">Suscríbete</a> y accede al set de datos, código fuente y video con la explicación detallada de esta lección. Además podrás disfrutar de todos los cursos de la <a href="#">Academia Online</a>
+                    </p>
+                </div>
+            </article>
+            <article id="art_2">
+                <h3>El problema a resolver</h3>
+
+                <p>
+                    La diabetes es una enfermedad crónica asociada a elevados niveles de azúcar en la sangre.
+                </p>
+                <p>
+                    El problema es que se trata de una enfermedad “silenciosa”, difícil de detectar en etapas tempranas, pues muchas veces es asintomática.
+                </p>
+                <p>
+                    La idea es usar el <a href="#">set de datos de los indígenas Pima</a>, que contiene múltiples variables predictivas asociadas a la diabetes así como la presencia o ausencia de la enfermedad en una muestra de esta población, para entrenar una Red Neuronal capaz de predecir la probabilidad de aparición de diabetes.
+                </p>
+            </article>
+            <article id="art_3">
+                <h3>El set de datos</h3>
+                <p>
+                    Este set fue obtenido de una población de 768 indígenas, todas mujeres y con edades de 21 años en adelante.
+                </p>
+                <p>
+                    Cada dato corresponde a un sujeto y contiene un total de ocho (8) características (<em>features</em>), así como la variable <em>Outcome</em> indicando si el sujeto tiene (1) o no (0) la enfermedad.
+                </p>
+                <p>
+                    Comencemos realizando la lectura del dataset usando la <a href="#">librería Pandas.</a>
+                </p>
+                <p>
+                    Como el set contiene muy pocos datos, al hacer la división convencional entre entrenamiento/prueba/validación, se tendrán muy pocos datos de prueba y validación.
+                </p>
+                <p>
+                    Al final veremos qué alternativa se puede usar para validar correctamente el modelo.
+                </p>
+            </article>
+            <article id="art_4">
+                <h3>Análisis Exploratorio de los Datos</h3>
+                <p>
+                    El primer paso en todo proyecto de Deep Learning es entender los datos. Esto implica, entre otras, entender las distribuciones, el rango de valores que tienen y si hay o no datos faltantes.
+                </p>
+                <p>
+                    Al realizar este análisis vemos por ejemplo que cada variable tiene una escala diferente y que el set está desbalanceado: hay más sujetos sanos (categoría 0) que enfermos (categoría 1), y que además hay algunos datos “sospechosos”: en algunas variables los sujetos presentan valores iguales a 0, ¡lo cual es fisiológicamente imposible!
+                </p>
+            </article>
+            <article id="art_5">
+                <h3>
+                    Manejo de datos faltantes
+                </h3>
+                <p>
+                    Los datos “sospechosos” pueden corresponder a lo que se conoce como datos faltantes (bien sea porque no fueron tomados en su momento o porque la muestra no fue procesada correctamente). Acá podemos optar por hacer imputación o eliminación usando la librería Pandas.
+                </p>
+            </article>
+            <article id="art_5">
+                <h3>Pre-procesamiento: estandarización de los datos</h3>
+                <p>
+                    Usaremos el módulo <code>preprocessing</code> y específicamente la función <code>scale</code> de la librería Scikit-Learn para pre-procesar los datos.
+                </p>
+            </article>
+            <article id="art_6">
+                <h3>Sets de entrenamiento, prueba y validación</h3>
+                <p>
+                    Haremos una partición de 80-10-10% usando repetidas veces el módulo <code>train_test_split</code> de Scikit-Learn.
+                </p>
+            </article>
+            <article id="art_7">
+                <h3>Modelos base, entrenamiento y prueba</h3>
+                <p>
+                    Al no tener un referente crearemos dos modelos de diferente complejidad:
+                </p>
+                <li>Modelo 1: 1 capa oculta con 4 neuronas (punto medio entre 8 y 1)</li>
+                <li>Modelo 2: 2 capas ocultas con 5 y 2 neuronas c/u</li>
+                <p>
+                    Con esto tendremos una idea de qué tan buenos son y luego podremos refinarlos.
+                </p>
+                <p>
+                    Para ello usaremos un enfoque similar al visto en la práctica 6 (donde implementamos una <a href="#">Red Neuronal con Keras</a>).
+                </p>
+                <p>
+                    El problema de este entrenamiento, prueba y validación es que el set está desbalanceado y hay muy pocos datos.
+                </p>
+                <p>
+                    Para entrenamiento y prueba se tienen prácticamente las mismas proporciones, pero en la validación son diferentes (hay más enfermos que en los casos anteriores). Esto afecta la validación final con cada modelo, lo cual implica que el desempeño del modelo no dependerá del modelo mismo, sino más bien de los datos con los que está siendo entrenado (que son muy pocos).
+                </p>
+                <p>
+                    ¿Qué alternativa existe para una validación más robusta?
+                </p>
+            </article>
+            <article id="art_8">
+                <h3>Cross-validation</h3>
+                <p>
+                    Cuando se tienen pocos datos de entrenamiento se sugiere NO dividirlos en entrenamiento-prueba-validación (usualmente 80-10-10), pues de hacerlo los sets de prueba y validación no serán una muestra representativa.
+                </p>
+                <p>
+                    Con <em>k-fold cross-validation</em> se evita este sesgo y se tiene una validación más robusta.
+                </p>
+                <p>
+                    Al final del entrenamiento se calcula el promedio y la desviación de las métricas de desempeño (<em>accuracy</em>) para los <em>k</em> entrenamientos, y se escoge el modelo con el mejor desempeño promedio.
+                </p>
+                <p>
+                    Finalmente se entrena este modelo escogido con la totalidad del set de datos.
+                </p>
+                <p>
+                    Al hacer esto vemos que el modelo 1 es ligeramente mejor que el modelo 2 (mayor promedio de exactitud y menor varianza).
+                </p>
+                <p>
+                    Finalmente, el modelo definitivo se entrena con la totalidad del dataset y puede ser almacenado en un archivo para posteriores predicciones.
+                </p>
+            </article>
+            <div class="subscripcion">
+                <img src="/img/contenido_exclusivo_suscriptores.png">
+                <p>
+                    <a href="#">Suscríbete</a> y accede al set de datos, código fuente y video con la explicación detallada de esta lección. Además podrás disfrutar de todos los cursos de la <a href="#">Academia Online</a>
+                </p>
+            </div>
+            <article id="art_9">
+                <h3>Conclusiones</h3>
+                <p>
+                    Perfecto, acabamos de poner en práctica varios de los conceptos desarrollados en esta sección para la implementación de un modelo que responde a un problema real. Con esto hemos podido no sólo reforzar las herramientas aprendidas previamente sobre la implementación de modelos usando Python y la librería Keras, sino también nos enfrentamos a diferentes fases de toma de decisiones que se deben tomar en un proyecto real de Deep Learning.
+                </p>
+                <p>
+                    Así que con esto concluimos esta sección del curso en donde aprendimos todo lo relacionado con las Redes Neuronales, con lo cual estamos listos para comenzar la tercera sección, en donde hablaremos de las Redes Convolucionales, una de las arquitecturas más usadas actualmente para el procesamiento de imágenes y para tareas de visión artificial.
+                </p>
+                <p>
+                    En particular en la próxima lección veremos una introducción a esta arquitectura, y hablaremos específicamente del <a href="#">sistema de visión humano y su relación con las Redes Convolucionales</a>.
+                </p>
+                <p>
+                    <a href="#">Ver todas las lecciones de este curso</a>
+                </p>
+            </article>
+        </div>
+        <hr>
+        <footer id="footBot">
+            <p id="copyright">© 2024 Codificando Bits</p>
+            <nav id="navfoot">
+                <ul class="footlist">
+                <li class="footlist">Acerca de</li>
+                <li class="footlist">Blog</li>
+                <li class="footlist">Descargas</li>
+            </ul>
+            </nav>
+        </footer>
+    </div>
+
+</body>
+</html>
