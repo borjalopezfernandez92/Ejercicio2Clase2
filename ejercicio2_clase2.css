@@ -1,10 +1,6 @@
 
-#cont_principal{
-    position: absolute;
-    max-width: 740px;
-    left: 30%;
-    right: 30%;
-}
+/**************************************/
+/*GENERAL*/
 
 body{
     margin: 0px;
@@ -20,15 +16,23 @@ p {
     height: 48px;
 }
 
+img{
+    width: 350px;
+}
 
+#cont_principal{
+    position: absolute;
+    max-width: 740px;
+    left: 30%;
+    right: 30%;
+}
+
+/**************************************/
+/*TABLAS*/
 #ul_tabla:hover,.subscripcion:hover{
     border-width: 1px;
     border-color: black;
     border-style: solid;
-}
-
-img{
-    width: 350px;
 }
 
 #ul_tabla{
@@ -61,7 +65,7 @@ h1{
 }
 
 /**************************************/
-/*Footers*/
+/*FOOTERS*/
 #footh1{
     text-align: center;
 }
